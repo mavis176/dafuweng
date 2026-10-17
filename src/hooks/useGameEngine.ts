@@ -536,13 +536,35 @@ export const useGameEngine = () => {
             if (canBuy) {
               player.money -= square.price;
               player.properties = [...player.properties, finalPos];
-              newBoard[finalPos] = { ...square, owner: playerIndex };
+              const updatedSquare = { ...square, owner: playerIndex };
+              newBoard[finalPos] = updatedSquare;
               newLogs.unshift(
                 createLog(
                   '交易',
                   `🏡 ${player.name} 买下地产【${square.name}】（花费 ${square.price} 金币）！成为该地块所有者。`
                 )
               );
+
+              if (!player.isAI) {
+                willPauseForModal = true;
+                const nextLvl = 1;
+                const nextLvlName = '第 1 栋房屋 🏠';
+
+                setBuildModal({
+                  show: true,
+                  property: updatedSquare,
+                  propertyIndex: finalPos,
+                  cost: 100,
+                  nextLevel: nextLvl,
+                  nextLevelName: nextLvlName,
+                });
+                newLogs.unshift(
+                  createLog(
+                    '交易',
+                    `🔨 ${player.name} 刚买下【${square.name}】，是否在此建造第一栋房屋？`
+                  )
+                );
+              }
             } else {
               newLogs.unshift(createLog('行动', `👀 ${player.name} 途经空地【${square.name}】，未购买土地。`));
             }
