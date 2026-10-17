@@ -1,0 +1,6 @@
+{
+  "name": "Family Monopoly",
+  "description": "A warm, minimalist, and family-friendly board game.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
