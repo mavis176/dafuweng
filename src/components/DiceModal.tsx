@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { soundManager } from '../utils/audio';
 
 interface DiceProps {
   value: number;
@@ -96,6 +97,9 @@ export const DiceModal: React.FC<DiceModalProps> = ({ d1, d2, isAI, playerName, 
   const [displayD2, setDisplayD2] = useState(d2);
 
   useEffect(() => {
+    // Play realistic dice clatter sound effect
+    soundManager.playDiceRoll();
+
     // Initial rattle effect
     let interval: NodeJS.Timeout | null = null;
     interval = setInterval(() => {

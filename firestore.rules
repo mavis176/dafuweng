@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidRoomId(roomId) {
+      return roomId is string && roomId.size() >= 4 && roomId.size() <= 16 && roomId.matches('^[0-9a-zA-Z_\\-]+$');
+    }
+
+    function isValidRoom(data) {
+      return data.keys().hasAll(['id', 'status', 'players', 'createdAt'])
+        && data.id is string && data.id.size() >= 4 && data.id.size() <= 16
+        && data.status in ['LOBBY', 'PLAYING', 'FINISHED']
+        && data.players is list && data.players.size() <= 4;
+    }
+
+    match /test/{docId} {
+      allow read: if true;
+    }
+
+    match /rooms/{roomId} {
+      allow get: if isValidRoomId(roomId);
+      allow list: if resource.data.status in ['LOBBY', 'PLAYING', 'FINISHED'];
+      allow create: if isValidRoomId(roomId) && isValidRoom(request.resource.data);
+      allow update: if isValidRoomId(roomId) && isValidRoom(request.resource.data);
+      allow delete: if isValidRoomId(roomId);
+    }
+  }
+}

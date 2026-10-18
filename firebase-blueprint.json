@@ -1,0 +1,29 @@
+{
+  "entities": {
+    "Room": {
+      "title": "Game Room",
+      "description": "Monopoly multiplayer game room",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "6-digit room code" },
+        "hostSessionId": { "type": "string" },
+        "status": { "type": "string" },
+        "mapTheme": { "type": "string" },
+        "gameMode": { "type": "string" },
+        "rounds": { "type": "number" },
+        "players": { "type": "array" },
+        "chatMessages": { "type": "array" },
+        "version": { "type": "number" },
+        "lastUpdatedBy": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "status", "players"]
+    }
+  },
+  "firestore": {
+    "/rooms/{roomId}": {
+      "schema": { "$ref": "#/entities/Room" },
+      "description": "Multiplayer Monopoly game rooms collection"
+    }
+  }
+}
