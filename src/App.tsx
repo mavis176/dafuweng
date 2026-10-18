@@ -191,40 +191,43 @@ export default function App() {
             {playerConfigs.map((cfg, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 p-2.5 bg-[#fbf8f3] rounded-2xl border border-[#ede1d1]"
+                className="flex flex-wrap sm:flex-nowrap items-center gap-2 p-3 bg-[#fbf8f3] rounded-2xl border border-[#ede1d1]"
               >
-                <span className="text-sm font-black text-[#a68263] w-5 text-center">
-                  #{index + 1}
-                </span>
-
-                <input
-                  type="text"
-                  value={cfg.name}
-                  onChange={(e) => handleUpdatePlayer(index, e.target.value, cfg.isAI)}
-                  placeholder={`玩家 ${index + 1} 名字`}
-                  className="flex-1 bg-white border border-[#dfceb7] rounded-xl px-3 py-1.5 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#d35400]"
-                />
-
-                <label className="flex items-center gap-1.5 bg-[#f2e7d8] px-2.5 py-1.5 rounded-xl cursor-pointer select-none">
+                <div className="flex items-center gap-2 flex-1 min-w-[160px]">
+                  <span className="text-sm font-black text-[#a68263] w-6 text-center shrink-0">
+                    #{index + 1}
+                  </span>
                   <input
-                    type="checkbox"
-                    checked={cfg.isAI}
-                    onChange={(e) => handleUpdatePlayer(index, cfg.name, e.target.checked)}
-                    className="accent-[#d35400] w-3.5 h-3.5 rounded cursor-pointer"
+                    type="text"
+                    value={cfg.name}
+                    onChange={(e) => handleUpdatePlayer(index, e.target.value, cfg.isAI)}
+                    placeholder={`玩家 ${index + 1} 名字`}
+                    className="flex-1 bg-white border border-[#dfceb7] rounded-xl px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#d35400]"
                   />
-                  <span className="text-xs font-bold text-[#6d4c41]">AI 控制</span>
-                </label>
+                </div>
 
-                {playerConfigs.length > 2 && (
-                  <button
-                    type="button"
-                    onClick={() => handleRemovePlayer(index)}
-                    className="text-red-500 hover:text-red-700 font-bold p-1 rounded-lg text-sm transition"
-                    title="移除该玩家"
-                  >
-                    ✕
-                  </button>
-                )}
+                <div className="flex items-center gap-2 justify-between w-full sm:w-auto">
+                  <label className="flex items-center gap-2 bg-[#f2e7d8] px-3 py-2 rounded-xl cursor-pointer select-none min-h-[38px] flex-1 sm:flex-initial justify-center">
+                    <input
+                      type="checkbox"
+                      checked={cfg.isAI}
+                      onChange={(e) => handleUpdatePlayer(index, cfg.name, e.target.checked)}
+                      className="accent-[#d35400] w-4 h-4 rounded cursor-pointer"
+                    />
+                    <span className="text-xs font-bold text-[#6d4c41]">AI 控制</span>
+                  </label>
+
+                  {playerConfigs.length > 2 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemovePlayer(index)}
+                      className="text-red-500 hover:text-red-700 font-bold p-2 rounded-xl text-base transition min-w-[38px] min-h-[38px] flex items-center justify-center bg-red-50 sm:bg-transparent shrink-0"
+                      title="移除该玩家"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
 
@@ -232,7 +235,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={handleAddPlayer}
-                className="w-full py-2 border-2 border-dashed border-[#d5be9b] hover:border-[#8b5a2b] text-[#8b5a2b] rounded-2xl text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer"
+                className="w-full py-3 border-2 border-dashed border-[#d5be9b] hover:border-[#8b5a2b] text-[#8b5a2b] rounded-2xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>＋</span>
                 <span>添加一位玩家 (最多4人)</span>
